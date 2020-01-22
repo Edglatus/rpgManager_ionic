@@ -7,10 +7,10 @@ import { retry, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService<T> {
-  constructor(private http: HttpClient, private urlName: string) { }
+export abstract class ApiService<T> {
+  constructor(protected http: HttpClient) { }
 
-  apiUrl = 'http://localhost:8080/api/' + urlName;
+  apiUrl = 'http://localhost:3000/';
 
   httpOptions = { headers: new HttpHeaders ({ 'Content-Type': 'application/json' }) };
 
