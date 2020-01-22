@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Personagens
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card (click)="expandItem(p)" *ngFor="let p of personagens">
+      <ion-item>
+        <ion-icon name="man" slot="start"></ion-icon>
+        <b>{{p.nome}}</b>
+      </ion-item>
+
+      <app-expandable expandHeight="150px" [expanded]="p.expanded">
+        <ion-card-content>
+          <b>Campanha:</b> {{campanhas[p.idCampanha - 1].nome}} <br>
+          <b>Jogador:</b> {{jogadores[p.idJogador - 1].nome}} <br>
+          <b>Classe:</b> {{classes[p.idClasse - 1].nome}} <br>
+        </ion-card-content>
+      </app-expandable>
+    </ion-card>
+  </ion-list>
+</ion-content>
