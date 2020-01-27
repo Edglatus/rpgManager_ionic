@@ -1,4 +1,5 @@
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 import { Classe } from '../../models/classe';
@@ -20,11 +21,15 @@ export class PersonagensPage implements OnInit {
   jogadores: any;
   classes: any;
 
-  constructor(private router: Router, private api: ApiPersonagemService, private apiClasse: ApiClasseService,
-              private apiJogador: ApiJogadorService, private apiCampanha: ApiCampanhaService) {
- }
+  constructor(private router: Router, private api: ApiPersonagemService, public aC: AlertController,
+              private apiClasse: ApiClasseService, private apiJogador: ApiJogadorService, private apiCampanha: ApiCampanhaService) {
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.getAll();
+  }
+
+  ionViewWillEnter() {
     this.getAll();
   }
 
@@ -58,7 +63,57 @@ export class PersonagensPage implements OnInit {
       });
   }
 
+  addPersonagem() {
+    this.router.navigate(['/personagem-form', 0]);
+  }
+
+  editPersonagem(id: number) {
+    this.router.navigate(['/personagem-form', id]);
+  }
+
+  async deletePersonagem(id: number) {
+    await this.api.delete(id)
+      .subscribe(res => {
+        console.log(res);
+        this.getAll();
+      }, err => {
+        console.log(err);
+      });
+  }
+
   expandItem(selectedItem) {
-    selectedItem.expanded = !selectedItem.expanded;
+    if (selectedItem.expanded === true) {
+      selectedItem.expanded = false;
+    } else {
+      this.personagens.map( item => {
+        if (item === selectedItem) {
+          item.expanded = true;
+        } else {
+          item.expanded = false;
+        }
+        return item;
+      });
+    }
+  }
+
+  async presentDeletePrompt(object: Personagem) {
+    const alert = await this.aC.create({
+      header: 'Excluir Personagem',
+      message: 'Excluir ' + object.nome + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Ok',
+          handler: () => {
+            this.deletePersonagem(object.id);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

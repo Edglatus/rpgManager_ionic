@@ -9,21 +9,43 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-list>
-    <ion-card (click)="expandItem(p)" *ngFor="let p of personagens">
-      <ion-item>
-        <ion-icon name="man" slot="start"></ion-icon>
-        <b>{{p.nome}}</b>
-      </ion-item>
+    <ion-card *ngFor="let p of personagens">
+      <ion-item-sliding #slidingItem (click)="expandItem(p); slidingItem.close()">
+        <ion-item>
+          <ion-icon name="man" slot="start"></ion-icon>
+          <b>{{p.nome}}</b>
+        </ion-item>
+        <ion-item-options side="start">
+          <ion-item-option color="danger" expandable (click)=presentDeletePrompt(p)>
+            <ion-icon name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
 
       <app-expandable expandHeight="150px" [expanded]="p.expanded">
-        <ion-card-content>
-          <b>Campanha:</b> {{campanhas[p.idCampanha - 1].nome}} <br>
-          <b>Jogador:</b> {{jogadores[p.idJogador - 1].nome}} <br>
-          <b>Classe:</b> {{classes[p.idClasse - 1].nome}} <br>
-        </ion-card-content>
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="auto">
+              <ion-card-content>
+                <div *ngIf="p.idCampanha > 0"><b>Campanha:</b> {{campanhas[p.idCampanha - 1].nome}} <br></div>
+                <div *ngIf="p.idJogador > 0"><b>Jogador:</b> {{jogadores[p.idJogador - 1].nome}} <br></div>
+                <div *ngIf="p.idClasse > 0"><b>Classe:</b> {{classes[p.idClasse - 1].nome}}</div>
+              </ion-card-content>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="editPersonagem(p.id)"><ion-icon name="create"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </app-expandable>
     </ion-card>
   </ion-list>
+
+  <ion-fab >
+    <ion-fab-button color="light" (click)="addPersonagem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
