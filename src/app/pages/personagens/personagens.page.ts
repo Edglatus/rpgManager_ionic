@@ -2,7 +2,6 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
-import { Classe } from '../../models/classe';
 import { Personagem } from '../../models/personagem';
 
 import { ApiClasseService } from '../../services/api-classe.service';

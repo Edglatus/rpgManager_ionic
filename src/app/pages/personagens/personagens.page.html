@@ -25,20 +25,20 @@
       </ion-item-sliding>
 
       <app-expandable expandHeight="150px" [expanded]="p.expanded">
-        <ion-grid>
-          <ion-row class="ion-align-items-center">
-            <ion-col size="auto">
-              <ion-card-content>
-                <div *ngIf="p.idCampanha > 0"><b>Campanha:</b> {{campanhas[p.idCampanha - 1].nome}} <br></div>
-                <div *ngIf="p.idJogador > 0"><b>Jogador:</b> {{jogadores[p.idJogador - 1].nome}} <br></div>
-                <div *ngIf="p.idClasse > 0"><b>Classe:</b> {{classes[p.idClasse - 1].nome}}</div>
-              </ion-card-content>
-            </ion-col>
-            <ion-col>
-              <ion-button (click)="editPersonagem(p.id)"><ion-icon name="create"></ion-icon></ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="auto">
+                  <div *ngIf="p.idCampanha > 0"><b>Campanha:</b> {{campanhas[p.idCampanha - 1].nome}} <br></div>
+                  <div *ngIf="p.idJogador > 0"><b>Jogador:</b> {{jogadores[p.idJogador - 1].nome}} <br></div>
+                  <div *ngIf="p.idClasse > 0"><b>Classe:</b> {{classes[p.idClasse - 1].nome}}</div>
+              </ion-col>
+              <ion-col size="auto">
+                <ion-button (click)="editPersonagem(p.id)"><ion-icon name="create"></ion-icon></ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
       </app-expandable>
     </ion-card>
   </ion-list>
