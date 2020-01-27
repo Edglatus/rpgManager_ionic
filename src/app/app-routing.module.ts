@@ -18,6 +18,14 @@ const routes: Routes = [
   {
     path: 'personagens',
     loadChildren: () => import('./pages/personagens/personagens.module').then( m => m.PersonagensPageModule)
+  },
+  {
+    path: 'personagem-form',
+    loadChildren: () => import('./pages/forms/personagem-form/personagem-form.module').then( m => m.PersonagemFormPageModule)
+  },
+  {
+    path: 'personagem-form/:id',
+    loadChildren: () => import('./pages/forms/personagem-form/personagem-form.module').then( m => m.PersonagemFormPageModule)
   }
 ];
 

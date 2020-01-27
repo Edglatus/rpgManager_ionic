@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edição de Personagem</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="save()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input required type="text" name="nome" [(ngModel)]="personagem.nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Classe</ion-label>
+        <ion-select placeholder="Select One" name="classe_id" [(ngModel)]="personagem.idClasse">
+          <ion-select-option *ngFor="let c of classes" [value]="c.id">{{c.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Campanha</ion-label>
+        <ion-select placeholder="Select One" name="campanha_id" [(ngModel)]="personagem.idCampanha">
+          <ion-select-option *ngFor="let ca of campanhas" [value]="ca.id">
+            {{ca.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Jogador</ion-label>
+        <ion-select placeholder="Select One" name="jogador_id" [(ngModel)]="personagem.idJogador">
+          <ion-select-option *ngFor="let j of jogadores" [value]="j.id">{{j.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" block>Salvar</ion-button>
+  </form>
+</ion-content>
