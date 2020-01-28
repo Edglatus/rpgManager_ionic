@@ -6,7 +6,7 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-card *ngFor="let c of campanhas">
+    <ion-card *ngFor="let c of store.list | async">
       <ion-item-sliding #slidingItem (click)="expandItem(c); slidingItem.close()">
         <ion-item>
           <ion-icon name="bonfire" slot="start"></ion-icon>
@@ -19,23 +19,23 @@
         </ion-item-options>
       </ion-item-sliding>
 
-      <app-expandable expandHeight="250px" [expanded]="c.expanded">
+      <app-expandable expandHeight="250px" [expanded]="c.expanded" >
         <ion-card-content>
           <ion-grid>
             <ion-row class="ion-justify-content-center">
-              <p><b>Data de Início:</b> {{c.cdate}}</p>
+              <p><b>Data de Início:</b><ion-datetime displayFormat="DD/MM/YYYY" readonly="true" value="{{c.cdate}}"></ion-datetime></p>
             </ion-row>
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="auto">
                   <b>Personagens:</b>
-                  <ion-list *ngFor="let p of getPersonagensByCampanha(c.id)">
-                    {{p.nome}}
+                  <ion-list *ngFor="let p of sPe.list | async">
+                    <p *ngIf="c.id === p.idCampanha">{{p.nome}}</p>
                   </ion-list>
               </ion-col>
               <ion-col size="auto">
                   <b>Jogadores:</b>
-                  <ion-list *ngFor="let j of getJogadoresByCampanha(c.id)">
-                    {{j.nome}}
+                  <ion-list *ngFor="let j of sJo.list | async">
+                    <p *ngIf="c.id === j.idCampanha">{{j.nome}}</p>
                   </ion-list>
               </ion-col>
               <ion-col size="auto">

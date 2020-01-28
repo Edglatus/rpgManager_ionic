@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edição de Campanha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="save()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input required type="text" name="nome" [(ngModel)]="campanha.nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Data de Início</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY" 
+          placeholder="Selecione uma Data" name="cdate" [(ngModel)]="campanha.cdate">
+        </ion-datetime>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" block>Salvar</ion-button>
+  </form>
+</ion-content>

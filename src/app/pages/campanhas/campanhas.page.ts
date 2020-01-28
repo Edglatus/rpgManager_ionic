@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Campanha } from '../../models/campanha';
 
-import { ApiJogadorService } from '../../services/api-jogador.service';
-import { ApiCampanhaService } from '../../services/api-campanha.service';
-import { ApiPersonagemService } from '../../services/api-personagem.service';
+import { StoreJogadorService } from '../../services/store/store-Jogador.service';
+import { StoreCampanhaService } from '../../services/store/store-campanha.service';
+import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
 @Component({
   selector: 'app-campanhas',
@@ -14,43 +14,13 @@ import { ApiPersonagemService } from '../../services/api-personagem.service';
   styleUrls: ['./campanhas.page.scss'],
 })
 export class CampanhasPage implements OnInit {
-  personagens: any;
-  campanhas: any;
-  jogadores: any;
 
-  constructor(private router: Router, private api: ApiPersonagemService, public aC: AlertController,
-              private apiJogador: ApiJogadorService, private apiCampanha: ApiCampanhaService) {
+  constructor(private router: Router, private store: StoreCampanhaService, public aC: AlertController,
+              private sJo: StoreJogadorService, private sPe: StorePersonagemService) {
   }
 
-  async ngOnInit() {
-    await this.getAll();
-  }
-
-  ionViewWillEnter() {
-    this.getAll();
-  }
-
-  async getAll() {
-    await this.apiJogador.getAll()
-      .subscribe(res => {
-        this.jogadores = res;
-      }, err => {
-        console.log(err);
-      });
-
-    await this.apiCampanha.getAll()
-      .subscribe(res => {
-        this.campanhas = res;
-      }, err => {
-        console.log(err);
-      });
-
-    await this.api.getAll()
-      .subscribe(res => {
-        this.personagens = res;
-      }, err => {
-        console.log(err);
-      });
+  ngOnInit() {
+    // await this.getAll();
   }
 
   addCampanha() {
@@ -62,28 +32,23 @@ export class CampanhasPage implements OnInit {
   }
 
   async deleteCampanha(id: number) {
-    await this.api.delete(id)
-      .subscribe(res => {
-        console.log(res);
-        this.getAll();
-      }, err => {
-        console.log(err);
-      });
+    await this.store.delete(id);
   }
 
   expandItem(selectedItem) {
-    if (selectedItem.expanded === true) {
-      selectedItem.expanded = false;
-    } else {
-      this.campanhas.map( item => {
-        if (item === selectedItem) {
-          item.expanded = true;
-        } else {
-          item.expanded = false;
-        }
-        return item;
-      });
-    }
+    // if (selectedItem.expanded === true) {
+    //   selectedItem.expanded = false;
+    // } else {
+    //   this.campanhas.map( item => {
+    //     if (item === selectedItem) {
+    //       item.expanded = true;
+    //     } else {
+    //       item.expanded = false;
+    //     }
+    //     return item;
+    //   });
+    // }
+    selectedItem.expanded = !selectedItem.expanded;
   }
 
   async presentDeletePrompt(object: Campanha) {
@@ -105,20 +70,5 @@ export class CampanhasPage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  getPersonagensByCampanha(idCampanha: number) {
-    if (this.personagens != null) {
-      return this.personagens.filter(p => p.idCampanha === idCampanha);
-    }
-  }
-
-  getJogadoresByCampanha(idCampanha: number) {
-    if (this.personagens != null) {
-      const personagens = this.getPersonagensByCampanha(idCampanha);
-      const idJogadores = personagens.map(p => p.idJogador);
-
-      return this.jogadores.filter(j => idJogadores.includes(j.id));
-    }
   }
 }

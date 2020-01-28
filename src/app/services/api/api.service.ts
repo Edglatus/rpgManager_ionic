@@ -1,12 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
 export abstract class ApiService<T> {
   constructor(protected http: HttpClient) { }
 
@@ -37,7 +33,7 @@ export abstract class ApiService<T> {
       catchError(this.handleError)
     );
   }
-  getOneByID(id): Observable<T> {
+  getOneByID(id: number): Observable<T> {
     return this.http.get<T>(this.apiUrl + '/' + id).pipe(
       retry(2),
       catchError(this.handleError)
@@ -53,7 +49,7 @@ export abstract class ApiService<T> {
   }
 
   // Put
-  update(id, entity): Observable<T> {
+  update(id: number, entity: T): Observable<T> {
     return this.http.put<T>(this.apiUrl + '/' + id, JSON.stringify(entity), this.httpOptions).pipe(
       retry(2),
       catchError(this.handleError)
@@ -61,7 +57,7 @@ export abstract class ApiService<T> {
   }
 
   // Delete
-  delete(id): Observable<T> {
+  delete(id: number): Observable<T> {
     return this.http.delete<T>(this.apiUrl + '/' + id).pipe(
       retry(2),
       catchError(this.handleError)

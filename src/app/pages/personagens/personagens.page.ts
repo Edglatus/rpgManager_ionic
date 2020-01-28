@@ -4,10 +4,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { Personagem } from '../../models/personagem';
 
-import { ApiClasseService } from '../../services/api-classe.service';
-import { ApiJogadorService } from '../../services/api-jogador.service';
-import { ApiCampanhaService } from '../../services/api-campanha.service';
-import { ApiPersonagemService } from '../../services/api-personagem.service';
+import { StoreClasseService } from '../../services/store/store-classe.service';
+import { StoreJogadorService } from '../../services/store/store-Jogador.service';
+import { StoreCampanhaService } from '../../services/store/store-campanha.service';
+import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
 @Component({
   selector: 'app-personagens',
@@ -15,51 +15,13 @@ import { ApiPersonagemService } from '../../services/api-personagem.service';
   styleUrls: ['./personagens.page.scss'],
 })
 export class PersonagensPage implements OnInit {
-  personagens: any;
-  campanhas: any;
-  jogadores: any;
-  classes: any;
-
-  constructor(private router: Router, private api: ApiPersonagemService, public aC: AlertController,
-              private apiClasse: ApiClasseService, private apiJogador: ApiJogadorService, private apiCampanha: ApiCampanhaService) {
+  constructor(private router: Router, public aC: AlertController,
+              private store: StorePersonagemService, private sCa: StoreCampanhaService,
+              private sCl: StoreClasseService, private sJo: StoreJogadorService) {
   }
 
-  async ngOnInit() {
-    await this.getAll();
-  }
-
-  ionViewWillEnter() {
-    this.getAll();
-  }
-
-  async getAll() {
-    await this.apiClasse.getAll()
-      .subscribe(res => {
-        this.classes = res;
-      }, err => {
-        console.log(err);
-      });
-
-    await this.apiJogador.getAll()
-      .subscribe(res => {
-        this.jogadores = res;
-      }, err => {
-        console.log(err);
-      });
-
-    await this.apiCampanha.getAll()
-      .subscribe(res => {
-        this.campanhas = res;
-      }, err => {
-        console.log(err);
-      });
-
-    await this.api.getAll()
-      .subscribe(res => {
-        this.personagens = res;
-      }, err => {
-        console.log(err);
-      });
+  ngOnInit() {
+    // await this.getAll();
   }
 
   addPersonagem() {
@@ -70,29 +32,26 @@ export class PersonagensPage implements OnInit {
     this.router.navigate(['/personagem-form', id]);
   }
 
-  async deletePersonagem(id: number) {
-    await this.api.delete(id)
-      .subscribe(res => {
-        console.log(res);
-        this.getAll();
-      }, err => {
-        console.log(err);
-      });
+  deletePersonagem(id: number) {
+    this.store.delete(id);
   }
 
   expandItem(selectedItem) {
-    if (selectedItem.expanded === true) {
-      selectedItem.expanded = false;
-    } else {
-      this.personagens.map( item => {
-        if (item === selectedItem) {
-          item.expanded = true;
-        } else {
-          item.expanded = false;
-        }
-        return item;
-      });
-    }
+    // if (selectedItem.expanded === true) {
+    //   selectedItem.expanded = false;
+    // } else {
+    //   console.log(this.personagens);
+    //
+    //   this.personagens.map( item => {
+    //     if (item === selectedItem) {
+    //       item.expanded = true;
+    //     } else {
+    //       item.expanded = false;
+    //     }
+    //     return item;
+    //   });
+    // }
+    selectedItem.expanded = !selectedItem.expanded;
   }
 
   async presentDeletePrompt(object: Personagem) {

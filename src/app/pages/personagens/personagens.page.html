@@ -11,7 +11,7 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-card *ngFor="let p of personagens">
+    <ion-card *ngFor="let p of store.list | async">
       <ion-item-sliding #slidingItem (click)="expandItem(p); slidingItem.close()">
         <ion-item>
           <ion-icon name="man" slot="start"></ion-icon>
@@ -29,9 +29,9 @@
           <ion-grid>
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="auto">
-                  <div *ngIf="p.idCampanha > 0"><b>Campanha:</b> {{campanhas[p.idCampanha - 1].nome}} <br></div>
-                  <div *ngIf="p.idJogador > 0"><b>Jogador:</b> {{jogadores[p.idJogador - 1].nome}} <br></div>
-                  <div *ngIf="p.idClasse > 0"><b>Classe:</b> {{classes[p.idClasse - 1].nome}}</div>
+                <div *ngFor="let jo of sJo.list | async"><p *ngIf="jo.id==p.idJogador"><b>Jogador:</b> {{jo.nome}}</p></div>
+                <div *ngFor="let cl of sCl.list | async"><p *ngIf="cl.id==p.idClasse"><b>Classe:</b> {{cl.nome}}</p></div>
+                  <div *ngFor="let ca of sCa.list | async"><p *ngIf="ca.id==p.idCampanha"><b>Campanha:</b> {{ca.nome}}</p></div>
               </ion-col>
               <ion-col size="auto">
                 <ion-button (click)="editPersonagem(p.id)"><ion-icon name="create"></ion-icon></ion-button>

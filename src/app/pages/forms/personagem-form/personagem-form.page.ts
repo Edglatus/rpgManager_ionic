@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Personagem } from '../../../models/personagem';
 
-import { ApiClasseService } from '../../../services/api-classe.service';
-import { ApiJogadorService } from '../../../services/api-jogador.service';
-import { ApiCampanhaService } from '../../../services/api-campanha.service';
-import { ApiPersonagemService } from '../../../services/api-personagem.service';
+import { StoreClasseService } from '../../../services/store/store-classe.service';
+import { StoreJogadorService } from '../../../services/store/store-Jogador.service';
+import { StoreCampanhaService } from '../../../services/store/store-campanha.service';
+import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 
 @Component({
   selector: 'app-personagem-form',
@@ -16,57 +16,24 @@ import { ApiPersonagemService } from '../../../services/api-personagem.service';
 export class PersonagemFormPage implements OnInit {
   personagem: Personagem;
 
-  classes: any;
-  campanhas: any;
-  jogadores: any;
-
-  constructor(private actRoute: ActivatedRoute, private router: Router, private api: ApiPersonagemService,
-              private apiClasse: ApiClasseService, private apiJogador: ApiJogadorService, private apiCampanha: ApiCampanhaService) {
-    this.personagem = new Personagem();
+  constructor(private actRoute: ActivatedRoute, private router: Router,
+              private store: StorePersonagemService, private sCa: StoreCampanhaService,
+              private sCl: StoreClasseService, private sJo: StoreJogadorService) {
+    this.personagem = new Personagem({id: 0, nome: 'Novo', idClasse: 0, idJogador: 0, idCampanha: 0});
   }
 
   async ngOnInit() {
-    await this.getData();
     await this.actRoute.params.subscribe(params => {
       const id: number = params.id;
 
-      if (id == 0) {
-        this.personagem.id = 0;
-        this.personagem.nome = 'Novo';
-        this.personagem.idClasse = 0;
-        this.personagem.idJogador = 0;
-        this.personagem.idCampanha = 0;
-      } else {
+      if (id != 0 && id !== null) {
         this.getById(id);
       }
     });
   }
 
-  async getData() {
-    await this.apiClasse.getAll()
-      .subscribe(res => {
-        this.classes = res;
-      }, err => {
-        console.log(err);
-      });
-
-    await this.apiJogador.getAll()
-      .subscribe(res => {
-        this.jogadores = res;
-      }, err => {
-        console.log(err);
-      });
-
-    await this.apiCampanha.getAll()
-      .subscribe(res => {
-        this.campanhas = res;
-      }, err => {
-        console.log(err);
-      });
-  }
-
   async getById(id: number) {
-    await this.api.getOneByID(id)
+    await this.store.getOneByID(id)
       .subscribe(res => {
         console.log(res);
         this.personagem = res;
@@ -77,19 +44,11 @@ export class PersonagemFormPage implements OnInit {
 
   async save() {
     if (this.personagem.id === 0 || this.personagem.id == null) {
-      await this.api.create(this.personagem)
-        .subscribe(res => {
-          this.router.navigateByUrl('/personagens');
-        }, (err) => {
-          console.log(err);
-        });
+      await this.store.create(this.personagem);
+      this.router.navigateByUrl('/personagens');
     } else {
-      await this.api.update(this.personagem.id, this.personagem)
-        .subscribe(res => {
-          this.router.navigateByUrl('/personagens');
-        }, (err) => {
-          console.log(err);
-        });
+      await this.store.update(this.personagem.id, this.personagem);
+      this.router.navigateByUrl('/personagens');
     }
   }
 }

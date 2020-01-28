@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path: 'campanhas',
     loadChildren: () => import('./pages/campanhas/campanhas.module').then( m => m.CampanhasPageModule)
+  },
+  {
+    path: 'campanha-form',
+    loadChildren: () => import('./pages/forms/campanha-form/campanha-form.module').then( m => m.CampanhaFormPageModule)
+  },
+  {
+    path: 'campanha-form/:id',
+    loadChildren: () => import('./pages/forms/campanha-form/campanha-form.module').then( m => m.CampanhaFormPageModule)
   }
 ];
 

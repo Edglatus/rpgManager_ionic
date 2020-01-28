@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from './api.service';
-import { Jogador } from '../models/jogador';
+import { Jogador } from '../../models/jogador';
 
 @Injectable({
   providedIn: 'root'
