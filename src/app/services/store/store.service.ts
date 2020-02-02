@@ -25,8 +25,11 @@ export abstract class StoreService<T> {
       );
   }
 
-  getOneByID(id: number) {
-    return this.api.getOneByID(id);
+  getOneByID(id: number): Observable<T> {
+    if (id !== 0) {
+      return this.api.getOneByID(id);
+    }
+    return null;
   }
 
   create(newItem: T): Observable<T> {

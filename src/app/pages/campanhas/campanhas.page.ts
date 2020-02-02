@@ -20,7 +20,6 @@ export class CampanhasPage implements OnInit {
   }
 
   ngOnInit() {
-    // await this.getAll();
   }
 
   addCampanha() {

@@ -8,6 +8,8 @@ import { CampanhasPageRoutingModule } from './campanhas-routing.module';
 
 import { ComponentsModule } from '../../components/components.module';
 
+import { CampanhaDetailComponent } from './campanha.Component';
+
 import { CampanhasPage } from './campanhas.page';
 
 @NgModule({
@@ -18,6 +20,6 @@ import { CampanhasPage } from './campanhas.page';
     ComponentsModule,
     CampanhasPageRoutingModule
   ],
-  declarations: [CampanhasPage]
+  declarations: [CampanhasPage, CampanhaDetailComponent]
 })
 export class CampanhasPageModule {}

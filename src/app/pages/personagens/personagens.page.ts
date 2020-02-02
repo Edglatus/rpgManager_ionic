@@ -4,9 +4,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Personagem } from '../../models/personagem';
 
-import { StoreClasseService } from '../../services/store/store-classe.service';
-import { StoreJogadorService } from '../../services/store/store-Jogador.service';
-import { StoreCampanhaService } from '../../services/store/store-campanha.service';
 import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
 @Component({
@@ -16,8 +13,7 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
 })
 export class PersonagensPage implements OnInit {
   constructor(private router: Router, public aC: AlertController,
-              private store: StorePersonagemService, private sCa: StoreCampanhaService,
-              private sCl: StoreClasseService, private sJo: StoreJogadorService) {
+              private store: StorePersonagemService) {
   }
 
   ngOnInit() {

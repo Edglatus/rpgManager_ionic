@@ -10,6 +10,8 @@ import { PersonagensPage } from './personagens.page';
 
 import { ComponentsModule } from '../../components/components.module';
 
+import { PersonagemDetailComponent } from './personagem.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,6 @@ import { ComponentsModule } from '../../components/components.module';
     ComponentsModule,
     PersonagensPageRoutingModule
   ],
-  declarations: [PersonagensPage]
+  declarations: [PersonagensPage, PersonagemDetailComponent]
 })
 export class PersonagensPageModule {}
