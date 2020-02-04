@@ -10,7 +10,7 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
 @Component({
     selector: 'personagem-detail',
     template: `
-      <ion-item-sliding #slidingItem (click)="slidingItem.close()" *ngIf="personagem | async as p">
+      <ion-item-sliding #slidingItem (click)="slidingItem.close()" >
         <ion-item (click)="expand(this)">
           <ion-icon name="man" slot="start"></ion-icon>
           <b>{{p.nome}}</b>
@@ -23,8 +23,6 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
       </ion-item-sliding>
 
       <app-expandable expandHeight="150px" [expanded]="this.expanded" (click)="expand(this)">
-        <ion-card-content>
-          <ion-grid>
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="auto">
                 <div *ngIf="jogador | async"><p><b>Jogador:</b></p></div>
@@ -40,8 +38,6 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
                 <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
               </ion-col>
             </ion-row>
-          </ion-grid>
-        </ion-card-content>
       </app-expandable>
 `})
 

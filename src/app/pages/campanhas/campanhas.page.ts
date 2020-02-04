@@ -5,9 +5,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Campanha } from '../../models/campanha';
 import { CampanhaDetailComponent } from './campanha.Component';
 
-import { StoreJogadorService } from '../../services/store/store-Jogador.service';
 import { StoreCampanhaService } from '../../services/store/store-campanha.service';
-import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
 @Component({
   selector: 'app-campanhas',
@@ -17,8 +15,7 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
 export class CampanhasPage implements OnInit {
   @ViewChildren('campanha') campanhas: QueryList<CampanhaDetailComponent>;
 
-  constructor(private router: Router, private store: StoreCampanhaService, public aC: AlertController,
-              private sJo: StoreJogadorService, private sPe: StorePersonagemService) {
+  constructor(private router: Router, private store: StoreCampanhaService, public aC: AlertController) {
   }
 
   ngOnInit() {

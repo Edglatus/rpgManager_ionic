@@ -25,8 +25,6 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
       </ion-item-sliding>
 
       <app-expandable expandHeight="250px" [expanded]="this.expanded" (click)="expand()">
-        <ion-card-content *ngIf="campanha | async as c">
-          <ion-grid>
             <ion-row class="ion-justify-content-center">
               <p><b>Data de Início:</b> {{c.cdate | date:'dd/MM/yyyy'}}</p>
             </ion-row>
@@ -47,8 +45,6 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
                 <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
               </ion-col>
             </ion-row>
-          </ion-grid>
-        </ion-card-content>
       </app-expandable>
 `})
 
