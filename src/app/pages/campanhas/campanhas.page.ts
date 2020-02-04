@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
 import { Campanha } from '../../models/campanha';
+import { CampanhaDetailComponent } from './campanha.Component';
 
 import { StoreJogadorService } from '../../services/store/store-Jogador.service';
 import { StoreCampanhaService } from '../../services/store/store-campanha.service';
@@ -14,6 +15,7 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
   styleUrls: ['./campanhas.page.scss'],
 })
 export class CampanhasPage implements OnInit {
+  @ViewChildren('campanha') campanhas: QueryList<CampanhaDetailComponent>;
 
   constructor(private router: Router, private store: StoreCampanhaService, public aC: AlertController,
               private sJo: StoreJogadorService, private sPe: StorePersonagemService) {
@@ -35,19 +37,17 @@ export class CampanhasPage implements OnInit {
   }
 
   expandItem(selectedItem) {
-    // if (selectedItem.expanded === true) {
-    //   selectedItem.expanded = false;
-    // } else {
-    //   this.campanhas.map( item => {
-    //     if (item === selectedItem) {
-    //       item.expanded = true;
-    //     } else {
-    //       item.expanded = false;
-    //     }
-    //     return item;
-    //   });
-    // }
-    selectedItem.expanded = !selectedItem.expanded;
+    if (selectedItem.expanded === true) {
+      selectedItem.expanded = false;
+    } else {
+      this.campanhas.toArray().forEach( item => {
+        if (item !== selectedItem) {
+          item.expanded = false;
+        }
+        return item;
+      });
+      selectedItem.expanded = true;
+    }
   }
 
   async presentDeletePrompt(object: Campanha) {

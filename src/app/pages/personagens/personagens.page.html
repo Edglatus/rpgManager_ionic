@@ -12,21 +12,8 @@
 <ion-content class="ion-padding">
   <ion-list>
     <ion-card *ngFor="let p of store.list | async">
-      <ion-item-sliding #slidingItem (click)="expandItem(p); slidingItem.close()">
-        <ion-item>
-          <ion-icon name="man" slot="start"></ion-icon>
-          <b>{{p.nome}}</b>
-        </ion-item>
-        <ion-item-options side="start">
-          <ion-item-option color="danger" expandable (click)=presentDeletePrompt(p)>
-            <ion-icon name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-
-      <app-expandable expandHeight="150px" [expanded]="p.expanded">
-        <personagem-detail (editPersonagem)="editPersonagem($event)" [id]="p.id"></personagem-detail>
-      </app-expandable>
+      <personagem-detail #personagem [p]="p" (edit)="editPersonagem($event)" (expandCard)=expandItem($event) (delete)="presentDeletePrompt($event)">
+      </personagem-detail>
     </ion-card>
   </ion-list>
 

@@ -1,27 +1,17 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Campanhas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-card *ngFor="let c of store.list | async; trackBy: item">
-      <ion-item-sliding #slidingItem (click)="expandItem(c); slidingItem.close()">
-        <ion-item>
-          <ion-icon name="bonfire" slot="start"></ion-icon>
-          <b>{{c.nome}}</b>
-        </ion-item>
-        <ion-item-options side="start">
-          <ion-item-option color="danger" expandable (click)=presentDeletePrompt(c)>
-            <ion-icon name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-
-      <app-expandable expandHeight="250px" [expanded]="c.expanded" >
-        <campanha-detail [id]="c.id" (editCampanha)="editCampanha($event)"></campanha-detail>
-      </app-expandable>
+    <ion-card *ngFor="let c of (store.list | async); index">
+      <campanha-detail #campanha [c]="c" (expandCard)="expandItem($event)" (edit)="editCampanha($event)" (delete)="presentDeletePrompt($event)">
+      </campanha-detail>
     </ion-card>
   </ion-list>
 

@@ -12,35 +12,53 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
 @Component({
     selector: 'campanha-detail',
     template: `
-      <ion-card-content *ngIf="campanha | async as c">
-        <ion-grid>
-          <ion-row class="ion-justify-content-center">
-            <p><b>Data de Início:</b> {{c.cdate | date:'dd/MM/yyyy'}}</p>
-          </ion-row>
-          <ion-row class="ion-justify-content-between">
-            <ion-col size="auto">
-                <b>Personagens:</b>
-                <ion-list *ngFor="let p of personagens | async">
-                  {{p.nome}}
-                </ion-list>
-            </ion-col>
-            <ion-col size="auto">
-                <b>Jogadores:</b>
-                <ion-list *ngFor="let j of jogadores | async">
-                  {{j.nome}}
-                </ion-list>
-            </ion-col>
-            <ion-col size="auto" class="ion-align-self-center">
-              <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+      <ion-item-sliding #slidingItem (click)="slidingItem.close()" *ngIf="campanha | async as p">
+        <ion-item (click)="expand()">
+          <ion-icon name="bonfire" slot="start"></ion-icon>
+          <b>{{c.nome}}</b>
+        </ion-item>
+        <ion-item-options side="start">
+          <ion-item-option color="danger" expandable (click)=emitDelete()>
+            <ion-icon name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+
+      <app-expandable expandHeight="250px" [expanded]="this.expanded" (click)="expand()">
+        <ion-card-content *ngIf="campanha | async as c">
+          <ion-grid>
+            <ion-row class="ion-justify-content-center">
+              <p><b>Data de Início:</b> {{c.cdate | date:'dd/MM/yyyy'}}</p>
+            </ion-row>
+            <ion-row class="ion-justify-content-between">
+              <ion-col size="auto">
+                  <b>Personagens:</b>
+                  <ion-list *ngFor="let p of personagens | async">
+                    {{p.nome}}
+                  </ion-list>
+              </ion-col>
+              <ion-col size="auto">
+                  <b>Jogadores:</b>
+                  <ion-list *ngFor="let j of jogadores | async">
+                    {{j.nome}}
+                  </ion-list>
+              </ion-col>
+              <ion-col size="auto" class="ion-align-self-center">
+                <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-card-content>
+      </app-expandable>
 `})
 
 export class CampanhaDetailComponent implements OnInit {
-  @Input() id: number;
-  @Output() editCampanha = new EventEmitter();
+  @Input() c: Campanha;
+  @Output() edit = new EventEmitter();
+  @Output() delete = new EventEmitter();
+  @Output() expandCard = new EventEmitter();
+
+  public expanded: boolean;
 
   private personagens;
   private jogadores;
@@ -57,7 +75,8 @@ export class CampanhaDetailComponent implements OnInit {
   }
 
   async getData() {
-    this.campanha = this.store.getOneByID(this.id);
+    this.expanded = false;
+    this.campanha = this.store.getOneByID(this.c.id);
     this.getPersonagensByCampanha();
     this.getJogadoresByCampanha();
   }
@@ -67,7 +86,7 @@ export class CampanhaDetailComponent implements OnInit {
       const pList = new Array();
 
       Object(res).forEach(p => {
-        if (p.idCampanha === this.id) {
+        if (p.idCampanha === this.c.id) {
         pList.push(p);
       }});
 
@@ -96,6 +115,12 @@ export class CampanhaDetailComponent implements OnInit {
   }
 
   emitSave() {
-    this.editCampanha.emit(this.id);
+    this.edit.emit(this.c.id);
+  }
+  emitDelete() {
+    this.delete.emit(this.c);
+  }
+  expand() {
+    this.expandCard.emit(this);
   }
 }

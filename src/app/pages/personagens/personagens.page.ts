@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
 import { Personagem } from '../../models/personagem';
+import { PersonagemDetailComponent } from './personagem.component';
 
 import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
@@ -12,12 +13,13 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
   styleUrls: ['./personagens.page.scss'],
 })
 export class PersonagensPage implements OnInit {
+  @ViewChildren('personagem') personagens: QueryList<PersonagemDetailComponent>;
+
   constructor(private router: Router, public aC: AlertController,
               private store: StorePersonagemService) {
   }
 
   ngOnInit() {
-    // await this.getAll();
   }
 
   addPersonagem() {
@@ -33,21 +35,17 @@ export class PersonagensPage implements OnInit {
   }
 
   expandItem(selectedItem) {
-    // if (selectedItem.expanded === true) {
-    //   selectedItem.expanded = false;
-    // } else {
-    //   console.log(this.personagens);
-    //
-    //   this.personagens.map( item => {
-    //     if (item === selectedItem) {
-    //       item.expanded = true;
-    //     } else {
-    //       item.expanded = false;
-    //     }
-    //     return item;
-    //   });
-    // }
-    selectedItem.expanded = !selectedItem.expanded;
+    if (selectedItem.expanded === true) {
+      selectedItem.expanded = false;
+    } else {
+      this.personagens.toArray().forEach( item => {
+        if (item !== selectedItem) {
+          item.expanded = false;
+        }
+        return item;
+      });
+      selectedItem.expanded = true;
+    }
   }
 
   async presentDeletePrompt(object: Personagem) {
