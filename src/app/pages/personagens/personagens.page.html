@@ -12,7 +12,7 @@
 <ion-content class="ion-padding">
   <ion-list>
     <ion-card *ngFor="let p of store.list | async">
-      <personagem-detail #personagem [p]="p" (edit)="editPersonagem($event)" (expandCard)=expandItem($event) (delete)="presentDeletePrompt($event)">
+      <personagem-detail #personagem [object]="p" (edit)="editPersonagem($event)" (expandCard)=expandItem($event) (delete)="presentDeletePrompt($event)">
       </personagem-detail>
     </ion-card>
   </ion-list>

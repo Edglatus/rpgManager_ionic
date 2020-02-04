@@ -1,7 +1,11 @@
+<ion-item-sliding #slidingItem (click)="slidingItem.close()">
+  <ng-content select="[header]"></ng-content>
+</ion-item-sliding>
+
 <div #expandWrapper class='expand-wrapper' [class.collapsed]="!expanded">
   <ion-card-content>
     <ion-grid>
-      <ng-content></ng-content>
+      <ng-content select="[body]"></ng-content>
     </ion-grid>
   </ion-card-content>
 </div>

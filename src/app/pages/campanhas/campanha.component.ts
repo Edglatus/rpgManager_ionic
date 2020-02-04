@@ -1,19 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Observable, forkJoin } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 
 import { Campanha } from '../../models/campanha';
+import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
 
 import { StoreJogadorService } from '../../services/store/store-Jogador.service';
 import { StoreCampanhaService } from '../../services/store/store-campanha.service';
 import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
 @Component({
-    selector: 'campanha-detail',
-    template: `
-      <ion-item-sliding #slidingItem (click)="slidingItem.close()" *ngIf="campanha | async as p">
-        <ion-item (click)="expand()">
+  selector: 'campanha-detail',
+  template: `
+    <app-expandable expandHeight="250px" *ngIf="object as c" [expanded]="this.expanded">
+      <div header >
+        <ion-item button="true" (click)="expand()">
           <ion-icon name="bonfire" slot="start"></ion-icon>
           <b>{{c.nome}}</b>
         </ion-item>
@@ -22,40 +23,34 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
             <ion-icon name="trash"></ion-icon>
           </ion-item-option>
         </ion-item-options>
-      </ion-item-sliding>
+      </div>
+      <div body >
+        <ion-row class="ion-justify-content-center">
+          <p><b>Data de Início:</b> {{c.cdate | date:'dd/MM/yyyy'}}</p>
+        </ion-row>
+        <ion-row class="ion-justify-content-between">
+          <ion-col size="auto">
+            <b>Personagens:</b>
+            <ion-list *ngFor="let p of personagens | async">
+              {{p.nome}}
+            </ion-list>
+          </ion-col>
+          <ion-col size="auto">
+            <b>Jogadores:</b>
+            <ion-list *ngFor="let j of jogadores | async">
+              {{j.nome}}
+            </ion-list>
+          </ion-col>
+          <ion-col size="auto" class="ion-align-self-center">
+            <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </app-expandable>
+  `
+})
 
-      <app-expandable expandHeight="250px" [expanded]="this.expanded" (click)="expand()">
-            <ion-row class="ion-justify-content-center">
-              <p><b>Data de Início:</b> {{c.cdate | date:'dd/MM/yyyy'}}</p>
-            </ion-row>
-            <ion-row class="ion-justify-content-between">
-              <ion-col size="auto">
-                  <b>Personagens:</b>
-                  <ion-list *ngFor="let p of personagens | async">
-                    {{p.nome}}
-                  </ion-list>
-              </ion-col>
-              <ion-col size="auto">
-                  <b>Jogadores:</b>
-                  <ion-list *ngFor="let j of jogadores | async">
-                    {{j.nome}}
-                  </ion-list>
-              </ion-col>
-              <ion-col size="auto" class="ion-align-self-center">
-                <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
-              </ion-col>
-            </ion-row>
-      </app-expandable>
-`})
-
-export class CampanhaDetailComponent implements OnInit {
-  @Input() c: Campanha;
-  @Output() edit = new EventEmitter();
-  @Output() delete = new EventEmitter();
-  @Output() expandCard = new EventEmitter();
-
-  public expanded: boolean;
-
+export class CampanhaDetailComponent extends BaseDetailsComponent<Campanha> implements OnInit {
   private personagens;
   private jogadores;
   private campanha;
@@ -64,6 +59,7 @@ export class CampanhaDetailComponent implements OnInit {
   private jLength;
 
   constructor(private store: StoreCampanhaService, private sPe: StorePersonagemService, private sJo: StoreJogadorService) {
+    super();
   }
 
   ngOnInit() {
@@ -71,8 +67,7 @@ export class CampanhaDetailComponent implements OnInit {
   }
 
   async getData() {
-    this.expanded = false;
-    this.campanha = this.store.getOneByID(this.c.id);
+    this.campanha = this.store.getOneByID(this.object.id);
     this.getPersonagensByCampanha();
     this.getJogadoresByCampanha();
   }
@@ -82,7 +77,7 @@ export class CampanhaDetailComponent implements OnInit {
       const pList = new Array();
 
       Object(res).forEach(p => {
-        if (p.idCampanha === this.c.id) {
+        if (p.idCampanha === this.object.id) {
         pList.push(p);
       }});
 
@@ -108,15 +103,5 @@ export class CampanhaDetailComponent implements OnInit {
 
       return Array(jList);
     }));
-  }
-
-  emitSave() {
-    this.edit.emit(this.c.id);
-  }
-  emitDelete() {
-    this.delete.emit(this.c);
-  }
-  expand() {
-    this.expandCard.emit(this);
   }
 }
