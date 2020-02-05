@@ -2,9 +2,9 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
+import { BasePage } from '../base-page.component';
 import { Personagem } from '../../../models/personagem';
 import { PersonagemDetailComponent } from './personagem.component';
-import { BasePageComponent } from '../base-page.component';
 
 import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 
@@ -13,7 +13,7 @@ import { StorePersonagemService } from '../../../services/store/store-personagem
   templateUrl: './personagens.page.html',
   styleUrls: ['./personagens.page.scss'],
 })
-export class PersonagensPage extends BasePageComponent<Personagem> implements OnInit {
+export class PersonagensPage extends BasePage<Personagem> implements OnInit {
   @ViewChildren('personagem') personagens: QueryList<PersonagemDetailComponent>;
 
   constructor(private r: Router, public aC: AlertController,
@@ -23,7 +23,7 @@ export class PersonagensPage extends BasePageComponent<Personagem> implements On
 
   ngOnInit() {
     this.tName = 'Personagem';
-    this.formPage = '/personagem-form';
+    this.formPage = 'personagem';
   }
 
   expandItem(selectedItem) {

@@ -2,9 +2,9 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
+import { BasePage } from '../base-page.component';
 import { Campanha } from '../../../models/campanha';
 import { CampanhaDetailComponent } from './campanha.Component';
-import { BasePageComponent } from '../base-page.component';
 
 import { StoreCampanhaService } from '../../../services/store/store-campanha.service';
 
@@ -13,7 +13,7 @@ import { StoreCampanhaService } from '../../../services/store/store-campanha.ser
   templateUrl: './campanhas.page.html',
   styleUrls: ['./campanhas.page.scss'],
 })
-export class CampanhasPage extends BasePageComponent<Campanha> implements OnInit {
+export class CampanhasPage extends BasePage<Campanha> implements OnInit {
   @ViewChildren('campanha') campanhas: QueryList<CampanhaDetailComponent>;
 
   constructor(private r: Router, public aC: AlertController,
@@ -23,7 +23,7 @@ export class CampanhasPage extends BasePageComponent<Campanha> implements OnInit
 
   ngOnInit() {
     this.tName = 'Campanha';
-    this.formPage = '/campanha-form';
+    this.formPage = 'campanha';
   }
 
   expandItem(selectedItem) {

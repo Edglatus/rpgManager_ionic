@@ -12,7 +12,7 @@ import { StorePersonagemService } from '../../../services/store/store-personagem
 @Component({
   selector: 'campanha-detail',
   template: `
-    <app-expandable expandHeight="250px" *ngIf="object as c" [expanded]="this.expanded">
+    <app-expandable expandHeight="450px" *ngIf="object as c" [expanded]="this.expanded">
       <div header >
         <ion-item button="true" (click)="expand()">
           <ion-icon name="bonfire" slot="start"></ion-icon>

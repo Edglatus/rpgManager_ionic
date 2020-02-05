@@ -4,7 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-base-page',
   template: ``
 })
-export class BaseDetailsComponent<T extends { id: number} > {
+export abstract class BaseDetailsComponent<T extends { id: number} > {
   @Input() object: T;
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();

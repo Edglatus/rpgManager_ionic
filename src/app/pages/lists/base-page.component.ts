@@ -8,7 +8,7 @@ import { StoreService } from '../../services/store/store.service';
 @Component({
   selector: 'app-base-page'
 })
-export class BasePageComponent<T extends {id: number, nome: string}> {
+export abstract class BasePage<T extends {id: number, nome: string}> {
   protected tName: string;
   protected formPage: string;
 
@@ -17,10 +17,10 @@ export class BasePageComponent<T extends {id: number, nome: string}> {
 
 
   protected add() {
-    this.router.navigate([this.formPage, 0]);
+    this.router.navigate(['form', this.formPage, 0]);
   }
   protected edit(id: number) {
-    this.router.navigate([this.formPage, id]);
+    this.router.navigate(['form', this.formPage, id]);
   }
   protected delete(id: number) {
     this.store.delete(id);

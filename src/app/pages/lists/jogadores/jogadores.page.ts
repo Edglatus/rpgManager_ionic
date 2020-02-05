@@ -2,9 +2,9 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
+import { BasePage } from '../base-page.component';
 import { Jogador } from '../../../models/jogador';
 import { JogadorDetailComponent } from './jogador.component';
-import { BasePageComponent } from '../base-page.component';
 
 import { StoreJogadorService } from '../../../services/store/store-jogador.service';
 
@@ -13,7 +13,7 @@ import { StoreJogadorService } from '../../../services/store/store-jogador.servi
   templateUrl: './jogadores.page.html',
   styleUrls: ['./jogadores.page.scss'],
 })
-export class JogadoresPage extends BasePageComponent<Jogador> implements OnInit {
+export class JogadoresPage extends BasePage<Jogador> implements OnInit {
   @ViewChildren('jogador') jogadores: QueryList<JogadorDetailComponent>;
 
   constructor(private r: Router, public aC: AlertController,
@@ -23,7 +23,7 @@ export class JogadoresPage extends BasePageComponent<Jogador> implements OnInit 
 
   ngOnInit() {
     this.tName = 'Jogador';
-    this.formPage = '/jogador-form';
+    this.formPage = 'jogador';
   }
 
   expandItem(selectedItem) {

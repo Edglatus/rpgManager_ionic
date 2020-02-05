@@ -2,9 +2,9 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
+import { BasePage } from '../base-page.component';
 import { Classe } from '../../../models/classe';
 import { ClasseDetailComponent } from './classe.component';
-import { BasePageComponent } from '../base-page.component';
 
 import { StoreClasseService } from '../../../services/store/store-classe.service';
 
@@ -13,7 +13,7 @@ import { StoreClasseService } from '../../../services/store/store-classe.service
   templateUrl: './classes.page.html',
   styleUrls: ['./classes.page.scss'],
 })
-export class ClassesPage extends BasePageComponent<Classe> implements OnInit {
+export class ClassesPage extends BasePage<Classe> implements OnInit {
   @ViewChildren('classe') classes: QueryList<ClasseDetailComponent>;
 
   constructor(private r: Router, public aC: AlertController,
@@ -23,7 +23,7 @@ export class ClassesPage extends BasePageComponent<Classe> implements OnInit {
 
   ngOnInit() {
     this.tName = 'Classe';
-    this.formPage = '/classe-form';
+    this.formPage = 'classe';
   }
 
   expandItem(selectedItem) {
