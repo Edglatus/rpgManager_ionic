@@ -4,7 +4,7 @@ import { Personagem } from '../../models/personagem';
 import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
 
 import { StoreClasseService } from '../../services/store/store-classe.service';
-import { StoreJogadorService } from '../../services/store/store-Jogador.service';
+import { StoreJogadorService } from '../../services/store/store-jogador.service';
 import { StoreCampanhaService } from '../../services/store/store-campanha.service';
 import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
@@ -25,8 +25,11 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
       </div>
       <div body>
         <ion-row class="ion-justify-content-between ion-align-items-center">
+          <ng-template #npc><p><b>NPC</b></p></ng-template>
+        </ion-row>
+        <ion-row class="ion-justify-content-between ion-align-items-center">
           <ion-col size="auto">
-            <div *ngIf="jogador | async"><p><b>Jogador:</b></p></div>
+            <div *ngIf="jogador | async else npc"><p><b>Jogador:</b></p></div>
             <div *ngIf="classe | async"><p><b>Classe:</b></p></div>
             <div *ngIf="campanha | async"><p><b>Campanha:</b></p></div>
           </ion-col>

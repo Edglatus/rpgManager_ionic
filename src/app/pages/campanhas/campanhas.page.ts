@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
 import { Campanha } from '../../models/campanha';
 import { CampanhaDetailComponent } from './campanha.Component';
+import { BasePageComponent } from '../../components/base-page/base-page.component';
 
 import { StoreCampanhaService } from '../../services/store/store-campanha.service';
 
@@ -12,59 +13,20 @@ import { StoreCampanhaService } from '../../services/store/store-campanha.servic
   templateUrl: './campanhas.page.html',
   styleUrls: ['./campanhas.page.scss'],
 })
-export class CampanhasPage implements OnInit {
+export class CampanhasPage extends BasePageComponent<Campanha> implements OnInit {
   @ViewChildren('campanha') campanhas: QueryList<CampanhaDetailComponent>;
 
-  constructor(private router: Router, private store: StoreCampanhaService, public aC: AlertController) {
+  constructor(private r: Router, public aC: AlertController,
+              private s: StoreCampanhaService) {
+    super(r, aC, s);
   }
 
   ngOnInit() {
+    this.tName = 'Campanha'
+    this.formPage = '/campanha-form';
   }
 
-  addCampanha() {
-    this.router.navigate(['/campanha-form', 0]);
-  }
-
-  editCampanha(id: number) {
-    this.router.navigate(['/campanha-form', id]);
-  }
-
-  async deleteCampanha(id: number) {
-    await this.store.delete(id);
-  }
-
-  expandItem(selectedItem) {
-    if (selectedItem.expanded === true) {
-      selectedItem.expanded = false;
-    } else {
-      this.campanhas.toArray().forEach( item => {
-        if (item !== selectedItem) {
-          item.expanded = false;
-        }
-        return item;
-      });
-      selectedItem.expanded = true;
-    }
-  }
-
-  async presentDeletePrompt(object: Campanha) {
-    const alert = await this.aC.create({
-      header: 'Excluir Campanha',
-      message: 'Excluir ' + object.nome + '?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary'
-        }, {
-          text: 'Ok',
-          handler: () => {
-            this.deleteCampanha(object.id);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
+  expandItem(selectedItem){
+    super.expandItem(selectedItem, this.campanhas);
   }
 }

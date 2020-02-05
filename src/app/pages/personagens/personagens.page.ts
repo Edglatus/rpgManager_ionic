@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
 import { Personagem } from '../../models/personagem';
 import { PersonagemDetailComponent } from './personagem.component';
+import { BasePageComponent } from '../../components/base-page/base-page.component';
 
 import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
@@ -12,60 +13,20 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
   templateUrl: './personagens.page.html',
   styleUrls: ['./personagens.page.scss'],
 })
-export class PersonagensPage implements OnInit {
+export class PersonagensPage extends BasePageComponent<Personagem> implements OnInit {
   @ViewChildren('personagem') personagens: QueryList<PersonagemDetailComponent>;
 
-  constructor(private router: Router, public aC: AlertController,
-              private store: StorePersonagemService) {
+  constructor(private r: Router, public aC: AlertController,
+              private s: StorePersonagemService) {
+    super(r, aC, s);
   }
 
   ngOnInit() {
-  }
-
-  addPersonagem() {
-    this.router.navigate(['/personagem-form', 0]);
-  }
-
-  editPersonagem(id: number) {
-    this.router.navigate(['/personagem-form', id]);
-  }
-
-  deletePersonagem(id: number) {
-    this.store.delete(id);
+    this.tName = 'Personagem'
+    this.formPage = '/personagem-form';
   }
 
   expandItem(selectedItem) {
-    if (selectedItem.expanded === true) {
-      selectedItem.expanded = false;
-    } else {
-      this.personagens.toArray().forEach( item => {
-        if (item !== selectedItem) {
-          item.expanded = false;
-        }
-        return item;
-      });
-      selectedItem.expanded = true;
-    }
-  }
-
-  async presentDeletePrompt(object: Personagem) {
-    const alert = await this.aC.create({
-      header: 'Excluir Personagem',
-      message: 'Excluir ' + object.nome + '?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary'
-        }, {
-          text: 'Ok',
-          handler: () => {
-            this.deletePersonagem(object.id);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
+    super.expandItem(selectedItem, this.personagens);
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { mergeMap } from 'rxjs/operators';
 
-import { Campanha } from '../../models/campanha';
+import { Jogador } from '../../models/jogador';
 import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
 
 import { StoreJogadorService } from '../../services/store/store-jogador.service';
@@ -10,13 +10,13 @@ import { StoreCampanhaService } from '../../services/store/store-campanha.servic
 import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
 @Component({
-  selector: 'campanha-detail',
+  selector: 'jogador-detail',
   template: `
-    <app-expandable expandHeight="250px" *ngIf="object as c" [expanded]="this.expanded">
+    <app-expandable expandHeight="250px" *ngIf="object as j" [expanded]="this.expanded">
       <div header >
         <ion-item button="true" (click)="expand()">
-          <ion-icon name="bonfire" slot="start"></ion-icon>
-          <b>{{c.nome}}</b>
+          <ion-icon name="man" slot="start"></ion-icon>
+          <b>{{j.nome}}</b>
         </ion-item>
         <ion-item-options side="start">
           <ion-item-option color="danger" expandable (click)=emitDelete()>
@@ -25,9 +25,6 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
         </ion-item-options>
       </div>
       <div body >
-        <ion-row class="ion-justify-content-center">
-          <p><b>Data de Início:</b> {{c.cdate | date:'dd/MM/yyyy'}}</p>
-        </ion-row>
         <ion-row class="ion-justify-content-between">
           <ion-col size="auto">
             <b>Personagens:</b>
@@ -36,9 +33,9 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
             </ion-list>
           </ion-col>
           <ion-col size="auto">
-            <b>Jogadores:</b>
-            <ion-list *ngFor="let j of jogadores | async">
-              {{j.nome}}
+            <b>Campanhas:</b>
+            <ion-list *ngFor="let c of campanhas | async">
+              {{c.nome}}
             </ion-list>
           </ion-col>
           <ion-col size="auto" class="ion-align-self-center">
@@ -50,12 +47,12 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
   `
 })
 
-export class CampanhaDetailComponent extends BaseDetailsComponent<Campanha> implements OnInit {
+export class JogadorDetailComponent extends BaseDetailsComponent<Jogador> implements OnInit {
   private personagens;
-  private jogadores;
-  private campanha;
+  private campanhas;
+  private jogador;
 
-  constructor(private store: StoreCampanhaService, private sPe: StorePersonagemService, private sJo: StoreJogadorService) {
+  constructor(private store: StoreJogadorService, private sPe: StorePersonagemService, private sCa: StoreCampanhaService) {
     super();
   }
 
@@ -64,17 +61,17 @@ export class CampanhaDetailComponent extends BaseDetailsComponent<Campanha> impl
   }
 
   async getData() {
-    this.campanha = this.store.getOneByID(this.object.id);
-    this.getPersonagensByCampanha();
-    this.getJogadoresByCampanha();
+    this.jogador = this.store.getOneByID(this.object.id);
+    this.getPersonagensByJogador();
+    this.getCampanhasByPersonagem();
   }
 
-  getPersonagensByCampanha() {
+  getPersonagensByJogador() {
     this.personagens = this.sPe.list.pipe(mergeMap (res => {
       const pList = new Array();
 
       Object(res).forEach(p => {
-        if (p.idCampanha === this.object.id) {
+        if (p.idJogador === this.object.id) {
         pList.push(p);
       }});
 
@@ -82,23 +79,23 @@ export class CampanhaDetailComponent extends BaseDetailsComponent<Campanha> impl
     }));
   }
 
-  getJogadoresByCampanha() {
-    this.jogadores = this.sJo.list.pipe(mergeMap (res => {
-      const jList = new Array();
+  getCampanhasByPersonagem() {
+    this.campanhas = this.sCa.list.pipe(mergeMap (res => {
+      const cList = new Array();
       const pList: Array<any> = new Array();
 
       this.personagens.subscribe(per => {
         Object(per).forEach(p => {
-          pList.push(p.idJogador);
+          pList.push(p.idCampanha);
         });
       });
 
-      Object(res).forEach(j => {
-        if (pList.includes(j.id)) {
-          jList.push(j);
+      Object(res).forEach(c => {
+        if (pList.includes(c.id)) {
+          cList.push(c);
         }});
 
-      return Array(jList);
+      return Array(cList);
     }));
   }
 }

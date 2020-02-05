@@ -25,6 +25,16 @@ export class AppComponent {
       title: 'Campanhas',
       url: '/campanhas',
       icon: 'bonfire'
+    },
+    {
+      title: 'Classes',
+      url: '/classes',
+      icon: 'color-wand'
+    },
+    {
+      title: 'Jogadores',
+      url: '/jogadores',
+      icon: 'people'
     }
   ];
 

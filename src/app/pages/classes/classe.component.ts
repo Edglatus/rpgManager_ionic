@@ -2,20 +2,19 @@ import { Component, OnInit } from '@angular/core';
 
 import { mergeMap } from 'rxjs/operators';
 
-import { Campanha } from '../../models/campanha';
+import { Classe } from '../../models/classe';
 import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
 
-import { StoreJogadorService } from '../../services/store/store-jogador.service';
-import { StoreCampanhaService } from '../../services/store/store-campanha.service';
+import { StoreClasseService } from '../../services/store/store-classe.service';
 import { StorePersonagemService } from '../../services/store/store-personagem.service';
 
 @Component({
-  selector: 'campanha-detail',
+  selector: 'classe-detail',
   template: `
     <app-expandable expandHeight="250px" *ngIf="object as c" [expanded]="this.expanded">
       <div header >
         <ion-item button="true" (click)="expand()">
-          <ion-icon name="bonfire" slot="start"></ion-icon>
+          <ion-icon name="color-wand" slot="start"></ion-icon>
           <b>{{c.nome}}</b>
         </ion-item>
         <ion-item-options side="start">
@@ -25,20 +24,11 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
         </ion-item-options>
       </div>
       <div body >
-        <ion-row class="ion-justify-content-center">
-          <p><b>Data de Início:</b> {{c.cdate | date:'dd/MM/yyyy'}}</p>
-        </ion-row>
         <ion-row class="ion-justify-content-between">
           <ion-col size="auto">
             <b>Personagens:</b>
             <ion-list *ngFor="let p of personagens | async">
               {{p.nome}}
-            </ion-list>
-          </ion-col>
-          <ion-col size="auto">
-            <b>Jogadores:</b>
-            <ion-list *ngFor="let j of jogadores | async">
-              {{j.nome}}
             </ion-list>
           </ion-col>
           <ion-col size="auto" class="ion-align-self-center">
@@ -50,12 +40,11 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
   `
 })
 
-export class CampanhaDetailComponent extends BaseDetailsComponent<Campanha> implements OnInit {
+export class ClasseDetailComponent extends BaseDetailsComponent<Classe> implements OnInit {
+  private classe;
   private personagens;
-  private jogadores;
-  private campanha;
 
-  constructor(private store: StoreCampanhaService, private sPe: StorePersonagemService, private sJo: StoreJogadorService) {
+  constructor(private store: StoreClasseService, private sPe: StorePersonagemService) {
     super();
   }
 
@@ -64,41 +53,20 @@ export class CampanhaDetailComponent extends BaseDetailsComponent<Campanha> impl
   }
 
   async getData() {
-    this.campanha = this.store.getOneByID(this.object.id);
-    this.getPersonagensByCampanha();
-    this.getJogadoresByCampanha();
+    this.classe = this.store.getOneByID(this.object.id);
+    this.getPersonagensByClasse();
   }
 
-  getPersonagensByCampanha() {
+  getPersonagensByClasse() {
     this.personagens = this.sPe.list.pipe(mergeMap (res => {
       const pList = new Array();
 
       Object(res).forEach(p => {
-        if (p.idCampanha === this.object.id) {
+        if (p.idClasse === this.object.id) {
         pList.push(p);
       }});
 
       return Array(pList);
-    }));
-  }
-
-  getJogadoresByCampanha() {
-    this.jogadores = this.sJo.list.pipe(mergeMap (res => {
-      const jList = new Array();
-      const pList: Array<any> = new Array();
-
-      this.personagens.subscribe(per => {
-        Object(per).forEach(p => {
-          pList.push(p.idJogador);
-        });
-      });
-
-      Object(res).forEach(j => {
-        if (pList.includes(j.id)) {
-          jList.push(j);
-        }});
-
-      return Array(jList);
     }));
   }
 }

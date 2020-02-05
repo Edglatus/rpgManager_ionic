@@ -34,7 +34,15 @@ const routes: Routes = [
   {
     path: 'campanha-form/:id',
     loadChildren: () => import('./pages/forms/campanha-form/campanha-form.module').then( m => m.CampanhaFormPageModule)
+  },  {
+    path: 'classes',
+    loadChildren: () => import('./pages/classes/classes.module').then( m => m.ClassesPageModule)
+  },
+  {
+    path: 'jogadores',
+    loadChildren: () => import('./pages/jogadores/jogadores.module').then( m => m.JogadoresPageModule)
   }
+
 ];
 
 @NgModule({
