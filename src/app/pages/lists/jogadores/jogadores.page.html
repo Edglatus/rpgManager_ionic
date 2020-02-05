@@ -10,7 +10,7 @@
 <ion-content class="ion-padding">
   <ion-list>
     <ion-card *ngFor="let j of (store.list | async); index">
-      <jogador-detail #campanha [object]="j" (expandCard)="expandItem($event)" (edit)="edit($event)" (delete)="presentDeletePrompt($event)">
+      <jogador-detail #jogador [object]="j" (expandCard)="expandItem($event)" (edit)="edit($event)" (delete)="presentDeletePrompt($event)">
       </jogador-detail>
     </ion-card>
   </ion-list>

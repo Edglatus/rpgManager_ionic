@@ -2,13 +2,11 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, QueryList } from '@angular/core';
 
-import { BaseDetailsComponent } from '../base-details/base-details.component';
+import { BaseDetailsComponent } from './base-details.component';
 import { StoreService } from '../../services/store/store.service';
 
 @Component({
-  selector: 'app-base-page',
-  templateUrl: './base-page.component.html',
-  styleUrls: ['./base-page.component.scss'],
+  selector: 'app-base-page'
 })
 export class BasePageComponent<T extends {id: number, nome: string}> {
   protected tName: string;
@@ -50,7 +48,7 @@ export class BasePageComponent<T extends {id: number, nome: string}> {
   }
 
   protected expandItem(selectedItem: BaseDetailsComponent<T>,
-                        array: QueryList<BaseDetailsComponent<T>>) {
+                       array: QueryList<BaseDetailsComponent<T>>) {
     if (selectedItem.expanded === true) {
       selectedItem.expanded = false;
     } else {

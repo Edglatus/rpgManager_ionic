@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CampanhasPageRoutingModule } from './campanhas-routing.module';
 
-import { ComponentsModule } from '../../components/components.module';
+import { ComponentsModule } from '../../../components/components.module';
 
 import { CampanhaDetailComponent } from './campanha.Component';
 

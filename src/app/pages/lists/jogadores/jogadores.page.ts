@@ -2,11 +2,11 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
-import { Jogador } from '../../models/jogador';
+import { Jogador } from '../../../models/jogador';
 import { JogadorDetailComponent } from './jogador.component';
-import { BasePageComponent } from '../../components/base-page/base-page.component';
+import { BasePageComponent } from '../base-page.component';
 
-import { StoreJogadorService } from '../../services/store/store-jogador.service';
+import { StoreJogadorService } from '../../../services/store/store-jogador.service';
 
 @Component({
   selector: 'app-jogadores',
@@ -22,7 +22,7 @@ export class JogadoresPage extends BasePageComponent<Jogador> implements OnInit 
   }
 
   ngOnInit() {
-    this.tName = 'Jogador'
+    this.tName = 'Jogador';
     this.formPage = '/jogador-form';
   }
 

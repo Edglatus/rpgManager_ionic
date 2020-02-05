@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { mergeMap } from 'rxjs/operators';
 
-import { Classe } from '../../models/classe';
-import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
+import { Classe } from '../../../models/classe';
+import { BaseDetailsComponent } from '../base-details.component';
 
-import { StoreClasseService } from '../../services/store/store-classe.service';
-import { StorePersonagemService } from '../../services/store/store-personagem.service';
+import { StoreClasseService } from '../../../services/store/store-classe.service';
+import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 
 @Component({
   selector: 'classe-detail',

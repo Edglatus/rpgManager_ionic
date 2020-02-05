@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 
-import { Personagem } from '../../models/personagem';
-import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
+import { Personagem } from '../../../models/personagem';
+import { BaseDetailsComponent } from '../base-details.component';
 
-import { StoreClasseService } from '../../services/store/store-classe.service';
-import { StoreJogadorService } from '../../services/store/store-jogador.service';
-import { StoreCampanhaService } from '../../services/store/store-campanha.service';
-import { StorePersonagemService } from '../../services/store/store-personagem.service';
+import { StoreClasseService } from '../../../services/store/store-classe.service';
+import { StoreJogadorService } from '../../../services/store/store-jogador.service';
+import { StoreCampanhaService } from '../../../services/store/store-campanha.service';
+import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 
 @Component({
   selector: 'personagem-detail',

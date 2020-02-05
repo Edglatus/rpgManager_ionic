@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { mergeMap } from 'rxjs/operators';
 
-import { Jogador } from '../../models/jogador';
-import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
+import { Jogador } from '../../../models/jogador';
+import { BaseDetailsComponent } from '../base-details.component';
 
-import { StoreJogadorService } from '../../services/store/store-jogador.service';
-import { StoreCampanhaService } from '../../services/store/store-campanha.service';
-import { StorePersonagemService } from '../../services/store/store-personagem.service';
+import { StoreJogadorService } from '../../../services/store/store-jogador.service';
+import { StoreCampanhaService } from '../../../services/store/store-campanha.service';
+import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 
 @Component({
   selector: 'jogador-detail',
@@ -15,7 +15,7 @@ import { StorePersonagemService } from '../../services/store/store-personagem.se
     <app-expandable expandHeight="250px" *ngIf="object as j" [expanded]="this.expanded">
       <div header >
         <ion-item button="true" (click)="expand()">
-          <ion-icon name="man" slot="start"></ion-icon>
+          <ion-icon name="people" slot="start"></ion-icon>
           <b>{{j.nome}}</b>
         </ion-item>
         <ion-item-options side="start">

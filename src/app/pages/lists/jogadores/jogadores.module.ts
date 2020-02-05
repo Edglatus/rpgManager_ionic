@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { JogadoresPageRoutingModule } from './jogadores-routing.module';
 
-import { ComponentsModule } from '../../components/components.module'
+import { ComponentsModule } from '../../../components/components.module';
 
 import { JogadoresPage } from './jogadores.page';
 

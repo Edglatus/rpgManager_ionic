@@ -2,11 +2,11 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
-import { Personagem } from '../../models/personagem';
+import { Personagem } from '../../../models/personagem';
 import { PersonagemDetailComponent } from './personagem.component';
-import { BasePageComponent } from '../../components/base-page/base-page.component';
+import { BasePageComponent } from '../base-page.component';
 
-import { StorePersonagemService } from '../../services/store/store-personagem.service';
+import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 
 @Component({
   selector: 'app-personagens',
@@ -22,7 +22,7 @@ export class PersonagensPage extends BasePageComponent<Personagem> implements On
   }
 
   ngOnInit() {
-    this.tName = 'Personagem'
+    this.tName = 'Personagem';
     this.formPage = '/personagem-form';
   }
 

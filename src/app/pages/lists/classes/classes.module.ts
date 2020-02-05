@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ClassesPageRoutingModule } from './classes-routing.module';
 
-import { ComponentsModule } from '../../components/components.module'
+import { ComponentsModule } from '../../../components/components.module';
 
 import { ClassesPage } from './classes.page';
 

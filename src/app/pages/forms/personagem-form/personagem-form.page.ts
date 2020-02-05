@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Personagem } from '../../../models/personagem';
 
 import { StoreClasseService } from '../../../services/store/store-classe.service';
-import { StoreJogadorService } from '../../../services/store/store-Jogador.service';
+import { StoreJogadorService } from '../../../services/store/store-jogador.service';
 import { StoreCampanhaService } from '../../../services/store/store-campanha.service';
 import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 

@@ -2,11 +2,11 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 
-import { Classe } from '../../models/classe';
+import { Classe } from '../../../models/classe';
 import { ClasseDetailComponent } from './classe.component';
-import { BasePageComponent } from '../../components/base-page/base-page.component';
+import { BasePageComponent } from '../base-page.component';
 
-import { StoreClasseService } from '../../services/store/store-classe.service';
+import { StoreClasseService } from '../../../services/store/store-classe.service';
 
 @Component({
   selector: 'app-classes',
@@ -22,7 +22,7 @@ export class ClassesPage extends BasePageComponent<Classe> implements OnInit {
   }
 
   ngOnInit() {
-    this.tName = 'Classe'
+    this.tName = 'Classe';
     this.formPage = '/classe-form';
   }
 

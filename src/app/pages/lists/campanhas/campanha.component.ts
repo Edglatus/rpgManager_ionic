@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { mergeMap } from 'rxjs/operators';
 
-import { Campanha } from '../../models/campanha';
-import { BaseDetailsComponent } from '../../components/base-details/base-details.component';
+import { Campanha } from '../../../models/campanha';
+import { BaseDetailsComponent } from '../base-details.component';
 
-import { StoreJogadorService } from '../../services/store/store-jogador.service';
-import { StoreCampanhaService } from '../../services/store/store-campanha.service';
-import { StorePersonagemService } from '../../services/store/store-personagem.service';
+import { StoreJogadorService } from '../../../services/store/store-jogador.service';
+import { StoreCampanhaService } from '../../../services/store/store-campanha.service';
+import { StorePersonagemService } from '../../../services/store/store-personagem.service';
 
 @Component({
   selector: 'campanha-detail',

@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'personagens',
-    loadChildren: () => import('./pages/personagens/personagens.module').then( m => m.PersonagensPageModule)
+    loadChildren: () => import('./pages/lists/personagens/personagens.module').then( m => m.PersonagensPageModule)
   },
   {
     path: 'personagem-form',
@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'campanhas',
-    loadChildren: () => import('./pages/campanhas/campanhas.module').then( m => m.CampanhasPageModule)
+    loadChildren: () => import('./pages/lists/campanhas/campanhas.module').then( m => m.CampanhasPageModule)
   },
   {
     path: 'campanha-form',
@@ -36,11 +36,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/forms/campanha-form/campanha-form.module').then( m => m.CampanhaFormPageModule)
   },  {
     path: 'classes',
-    loadChildren: () => import('./pages/classes/classes.module').then( m => m.ClassesPageModule)
+    loadChildren: () => import('./pages/lists/classes/classes.module').then( m => m.ClassesPageModule)
   },
   {
     path: 'jogadores',
-    loadChildren: () => import('./pages/jogadores/jogadores.module').then( m => m.JogadoresPageModule)
+    loadChildren: () => import('./pages/lists/jogadores/jogadores.module').then( m => m.JogadoresPageModule)
   }
 
 ];
