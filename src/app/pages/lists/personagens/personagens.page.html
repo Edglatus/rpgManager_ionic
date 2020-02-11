@@ -11,25 +11,23 @@
 
 <ion-content class="ion-padding">
   <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
-  <ion-select [(ngModel)]="sortParam" interface="popover">
-      <ion-select-option selected value="nome">Nome</ion-select-option>
-      <ion-select-option value="idClasse">Classe</ion-select-option>
-      <ion-select-option value="idCampanha">Campanha</ion-select-option>
-      <ion-select-option value="idJogador">Jogador</ion-select-option>
-    </ion-select>
   <ion-list>
+    <ion-item>
+      <ion-label>Ordenar</ion-label>
+      <ion-select [(ngModel)]="sortParam" interface="popover">
+        <ion-select-option selected value="nome">Nome</ion-select-option>
+        <ion-select-option value="idClasse">Classe</ion-select-option>
+        <ion-select-option value="idCampanha">Campanha</ion-select-option>
+        <ion-select-option value="idJogador">Jogador</ion-select-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item-group *ngFor="let p of store.list | async | sort: sortParam | search: searchTerm; index as i;">
-      <!-- <ion-item-divider *ngIf="sortParam==='idCampanha' && (i===0 || (store.list|async)[i].idCampanha != (store.list|async)[i-1].idCampanha)">
-        {{(sCa.list|async)[p.idCampanha-1].nome}}
-      </ion-item-divider>
-      <ion-item-divider *ngIf="sortParam==='idJogador' && (i===0 || (store.list|async)[i].idJogador != (store.list|async)[i-1].idJogador)">
-        {{(sJo.list|async)[p.idJogador-1].nome}}
-      </ion-item-divider>
-      <ion-item-divider *ngIf="sortParam==='idClasse' && (i===0 || (store.list|async)[i].idClasse != (store.list|async)[i-1].idClasse)">
-        {{(sCl.list|async)[p.idClasse-1].nome}}
-      </ion-item-divider> -->
-      <personagem-detail #personagem [object]="p" (edit)="edit($event)" (expandCard)=expandItem($event) (delete)="presentDeletePrompt($event)">
-      </personagem-detail>
+      <personagem-detail #personagem [object]="p" (edit)="edit($event)" (expandCard)=expandItem($event) (delete)="presentDeletePrompt($event)"
+        [hasCampanhaLabel]="sortParam==='idCampanha' && (i===0 || (store.list|async)[i].idCampanha != (store.list|async)[i-1].idCampanha)"
+        [hasJogadorLabel]="sortParam==='idJogador' && (i===0 || (store.list|async)[i].idJogador != (store.list|async)[i-1].idJogador)"
+        [hasClasseLabel]="sortParam==='idClasse' && (i===0 || (store.list|async)[i].idClasse != (store.list|async)[i-1].idClasse)"
+      ></personagem-detail>
     </ion-item-group>
   </ion-list>
 

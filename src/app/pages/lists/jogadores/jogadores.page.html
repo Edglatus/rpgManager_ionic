@@ -8,16 +8,16 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
   <ion-list>
-    <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
-    <ion-card *ngFor="let j of (store.list | async | sort: sortParam | search: searchTerm); index">
+    <ion-item-group *ngFor="let j of (store.list | async | sort: sortParam | search: searchTerm); index">
       <jogador-detail #jogador [object]="j" (expandCard)="expandItem($event)" (edit)="edit($event)" (delete)="presentDeletePrompt($event)">
       </jogador-detail>
-    </ion-card>
+    </ion-item-group>
   </ion-list>
 
-  <ion-fab >
-    <ion-fab-button color="light" (click)="add()">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="tertiary" (click)="add()" class="ion-margin">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

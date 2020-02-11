@@ -12,38 +12,40 @@ import { StorePersonagemService } from '../../../services/store/store-personagem
 @Component({
   selector: 'jogador-detail',
   template: `
-    <app-expandable expandHeight="250px" *ngIf="object as j" [expanded]="this.expanded">
-      <div header >
-        <ion-item button="true" (click)="expand()">
-          <ion-icon name="people" slot="start"></ion-icon>
-          <b>{{j.nome}}</b>
-        </ion-item>
-        <ion-item-options side="start">
-          <ion-item-option color="danger" expandable (click)=emitDelete()>
-            <ion-icon name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </div>
-      <div body >
-        <ion-row class="ion-justify-content-between">
-          <ion-col size="auto">
-            <b>Personagens:</b>
-            <ion-list *ngFor="let p of personagens | async">
-              {{p.nome}}
-            </ion-list>
-          </ion-col>
-          <ion-col size="auto">
-            <b>Campanhas:</b>
-            <ion-list *ngFor="let c of campanhas | async">
-              {{c.nome}}
-            </ion-list>
-          </ion-col>
-          <ion-col size="auto" class="ion-align-self-center">
-            <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
-          </ion-col>
-        </ion-row>
-      </div>
-    </app-expandable>
+    <ion-card>
+      <app-expandable expandHeight="250px" *ngIf="object as j" [expanded]="this.expanded">
+        <div header >
+          <ion-item button="true" (click)="expand()">
+            <ion-icon name="people" slot="start"></ion-icon>
+            <b>{{j.nome}}</b>
+          </ion-item>
+          <ion-item-options side="start">
+            <ion-item-option color="danger" expandable (click)=emitDelete()>
+              <ion-icon name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </div>
+        <div body >
+          <ion-row class="ion-justify-content-between">
+            <ion-col size="auto">
+              <b>Personagens:</b>
+              <ion-list *ngFor="let p of personagens | async">
+                {{p.nome}}
+              </ion-list>
+            </ion-col>
+            <ion-col size="auto">
+              <b>Campanhas:</b>
+              <ion-list *ngFor="let c of campanhas | async">
+                {{c.nome}}
+              </ion-list>
+            </ion-col>
+            <ion-col size="auto" class="ion-align-self-center">
+              <ion-button (click)="emitSave()"><ion-icon name="create"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </app-expandable>
+    </ion-card>
   `
 })
 
