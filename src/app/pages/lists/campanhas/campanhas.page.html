@@ -8,8 +8,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
   <ion-list>
-    <ion-card *ngFor="let c of (store.list | async); index">
+    <ion-card *ngFor="let c of (store.list | async | sort: sortParam | search: searchTerm); index">
       <campanha-detail #campanha [object]="c" (expandCard)="expandItem($event)" (edit)="edit($event)" (delete)="presentDeletePrompt($event)">
       </campanha-detail>
     </ion-card>

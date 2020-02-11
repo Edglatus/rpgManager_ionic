@@ -9,7 +9,8 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-card *ngFor="let j of (store.list | async); index">
+    <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
+    <ion-card *ngFor="let j of (store.list | async | sort: sortParam | search: searchTerm); index">
       <jogador-detail #jogador [object]="j" (expandCard)="expandItem($event)" (edit)="edit($event)" (delete)="presentDeletePrompt($event)">
       </jogador-detail>
     </ion-card>

@@ -11,6 +11,8 @@ import { StorePersonagemService } from '../../../services/store/store-personagem
 @Component({
   selector: 'personagem-detail',
   template: `
+  <ion-item-divider>hello</ion-item-divider>
+  <ion-card>
     <app-expandable expandHeight="150px" *ngIf="object as p" [expanded]="this.expanded">
       <div header>
         <ion-item button="true" (click)="expand(this)">
@@ -44,6 +46,7 @@ import { StorePersonagemService } from '../../../services/store/store-personagem
         </ion-row>
       </div>
     </app-expandable>
+    </ion-card>
   `
 })
 

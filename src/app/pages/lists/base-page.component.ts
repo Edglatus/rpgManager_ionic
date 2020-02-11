@@ -12,8 +12,13 @@ export abstract class BasePage<T extends {id: number, nome: string}> {
   protected tName: string;
   protected formPage: string;
 
+  protected searchTerm: string;
+  protected sortParam: string;
+
   constructor(private router: Router, public alertC: AlertController,
-              private store: StoreService<T>) { }
+              private store: StoreService<T>) {
+    this.sortParam = 'nome';
+  }
 
 
   protected add() {
