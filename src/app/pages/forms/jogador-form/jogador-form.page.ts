@@ -15,7 +15,7 @@ export class JogadorFormPage extends BaseFormPage<Jogador> implements OnInit {
 
   constructor(private aR: ActivatedRoute, private r: Router, private s: StoreJogadorService) {
     super(aR, r, s);
-    this.object = new Jogador({id: 0, nome: 'Novo'});
+    this.object = new Jogador({id: 0, nome: 'Novo Jogador'});
     this.listPage = '/jogadores';
   }
 

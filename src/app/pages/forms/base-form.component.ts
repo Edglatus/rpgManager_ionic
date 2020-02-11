@@ -17,7 +17,7 @@ export class BaseFormPage<T extends {id: number}> {
     await this.actRoute.params.subscribe(params => {
       const id: number = params.id;
 
-      if (id != 0 && id !== null) {
+      if (id != 0 && id !== null && id !== undefined) {
         this.getById(id);
       }
     });

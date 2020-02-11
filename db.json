@@ -256,6 +256,13 @@
       "idJogador": 3,
       "idClasse": 8,
       "idCampanha": 4
+    },
+    {
+      "id": 22,
+      "nome": "Crinna",
+      "idJogador": 0,
+      "idClasse": 8,
+      "idCampanha": 2
     }
   ]
 }

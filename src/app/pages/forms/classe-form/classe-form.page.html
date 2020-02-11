@@ -11,10 +11,11 @@
   <form (ngSubmit)="save()">
     <ion-list>
       <ion-item>
-        <ion-label stacked>Nome</ion-label>
-        <ion-input required type="text" name="nome" [(ngModel)]="object.nome"></ion-input>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input required clearOnEdit=true  type="text" name="nome" [(ngModel)]="object.nome"></ion-input>
       </ion-item>
     </ion-list>
     <ion-button type="submit" block>Salvar</ion-button>
+    <ion-button type="button" href="/classes" block>Cancelar</ion-button>
   </form>
 </ion-content>

@@ -20,7 +20,7 @@ export class PersonagemFormPage extends BaseFormPage<Personagem> implements OnIn
               private s: StorePersonagemService, private sCa: StoreCampanhaService,
               private sCl: StoreClasseService, private sJo: StoreJogadorService) {
     super(aR, r, s);
-    this.object = new Personagem({id: 0, nome: 'Novo', idClasse: 0, idJogador: 0, idCampanha: 0});
+    this.object = new Personagem({id: 0, nome: 'Nova Personagem', idClasse: 0, idJogador: undefined, idCampanha: 0});
     this.listPage = '/personagens';
   }
 

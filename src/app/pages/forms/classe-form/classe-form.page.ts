@@ -15,7 +15,7 @@ export class ClasseFormPage extends BaseFormPage<Classe> implements OnInit {
 
   constructor(private aR: ActivatedRoute, private r: Router, private s: StoreClasseService) {
     super(aR, r, s);
-    this.object = new Classe({id: 0, nome: 'Novo'});
+    this.object = new Classe({id: 0, nome: 'Nova Classe'});
     this.listPage = '/classes';
   }
 

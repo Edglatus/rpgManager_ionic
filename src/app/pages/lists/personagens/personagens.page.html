@@ -24,9 +24,9 @@
 
     <ion-item-group *ngFor="let p of store.list | async | sort: sortParam | search: searchTerm; index as i;">
       <personagem-detail #personagem [object]="p" (edit)="edit($event)" (expandCard)=expandItem($event) (delete)="presentDeletePrompt($event)"
-        [hasCampanhaLabel]="sortParam==='idCampanha' && (i===0 || (store.list|async)[i].idCampanha != (store.list|async)[i-1].idCampanha)"
-        [hasJogadorLabel]="sortParam==='idJogador' && (i===0 || (store.list|async)[i].idJogador != (store.list|async)[i-1].idJogador)"
-        [hasClasseLabel]="sortParam==='idClasse' && (i===0 || (store.list|async)[i].idClasse != (store.list|async)[i-1].idClasse)"
+        [hasCampanhaLabel]="!searchTerm && sortParam==='idCampanha' && (i===0 || (store.list|async)[i].idCampanha != (store.list|async)[i-1].idCampanha)"
+        [hasJogadorLabel]="!searchTerm && sortParam==='idJogador' && (i===0 || (store.list|async)[i].idJogador != (store.list|async)[i-1].idJogador)"
+        [hasClasseLabel]="!searchTerm && sortParam==='idClasse' && (i===0 || (store.list|async)[i].idClasse != (store.list|async)[i-1].idClasse)"
       ></personagem-detail>
     </ion-item-group>
   </ion-list>

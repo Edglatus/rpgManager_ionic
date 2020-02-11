@@ -11,13 +11,13 @@
   <form (ngSubmit)="save()">
     <ion-list>
       <ion-item>
-        <ion-label stacked>Nome</ion-label>
-        <ion-input required type="text" name="nome" [(ngModel)]="object.nome"></ion-input>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input required clearOnEdit=true type="text" name="nome" [(ngModel)]="object.nome"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Classe</ion-label>
-        <ion-select placeholder="Select One" name="classe_id" [(ngModel)]="object.idClasse">
+        <ion-label position="floating">Classe</ion-label>
+        <ion-select name="classe_id" [(ngModel)]="object.idClasse">
           <ion-select-option *ngFor="let cl of sCl.list | async" [value]="cl.id">
             {{cl.nome}}
           </ion-select-option>
@@ -25,8 +25,8 @@
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Campanha</ion-label>
-        <ion-select placeholder="Select One" name="campanha_id" [(ngModel)]="object.idCampanha">
+        <ion-label position="floating">Campanha</ion-label>
+        <ion-select name="campanha_id" [(ngModel)]="object.idCampanha">
           <ion-select-option *ngFor="let ca of sCa.list | async" [value]="ca.id">
             {{ca.nome}}
           </ion-select-option>
@@ -34,8 +34,8 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Jogador</ion-label>
-        <ion-select placeholder="Select One" name="jogador_id" [(ngModel)]="object.idJogador">
+        <ion-label position="floating">Jogador</ion-label>
+        <ion-select name="jogador_id" [(ngModel)]="object.idJogador">
           <ion-select-option [value]=0>
             <b>Personagem do Mestre (NPC)</b>
           </ion-select-option>
@@ -46,5 +46,6 @@
       </ion-item>
     </ion-list>
     <ion-button type="submit" block>Salvar</ion-button>
+    <ion-button type="button" href="/personagens" block>Cancelar</ion-button>
   </form>
 </ion-content>

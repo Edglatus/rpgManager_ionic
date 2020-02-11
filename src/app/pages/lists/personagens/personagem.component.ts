@@ -18,6 +18,9 @@ import { StorePersonagemService } from '../../../services/store/store-personagem
       <ion-label *ngIf="hasClasseLabel && (classe | async) as cl">
         {{cl.nome}}
       </ion-label>
+      <ion-label *ngIf="hasJogadorLabel && !(jogador | async)">
+        Personagem do Mestre
+      </ion-label>
       <ion-label *ngIf="hasJogadorLabel && (jogador | async) as jo">
         {{jo.nome}}
       </ion-label>
@@ -37,12 +40,14 @@ import { StorePersonagemService } from '../../../services/store/store-personagem
           </ion-item-options>
         </div>
         <div body>
-          <ion-row class="ion-justify-content-between ion-align-items-center">
-            <ng-template #npc><p><b>NPC</b></p></ng-template>
+          <ion-row *ngIf="!(jogador | async)" class="ion-justify-content-center" >
+            <ion-col size="auto">
+              <b>Personagem do Mestre</b>
+            </ion-col>
           </ion-row>
           <ion-row class="ion-justify-content-between ion-align-items-center">
             <ion-col size="auto">
-              <div *ngIf="jogador | async else npc"><p><b>Jogador:</b></p></div>
+              <div *ngIf="jogador | async"><p><b>Jogador:</b></p></div>
               <div *ngIf="classe | async"><p><b>Classe:</b></p></div>
               <div *ngIf="campanha | async"><p><b>Campanha:</b></p></div>
             </ion-col>

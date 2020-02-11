@@ -11,16 +11,16 @@
   <form (ngSubmit)="save()">
     <ion-list>
       <ion-item>
-        <ion-label stacked>Nome</ion-label>
-        <ion-input required type="text" name="nome" [(ngModel)]="object.nome"></ion-input>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input required clearOnEdit=true type="text" name="nome" [(ngModel)]="object.nome"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Data de Início</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY"
-          placeholder="Selecione uma Data" name="cdate" [(ngModel)]="object.cdate">
+        <ion-label position="floating">Data de Início</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY" name="cdate" [(ngModel)]="object.cdate">
         </ion-datetime>
       </ion-item>
     </ion-list>
     <ion-button type="submit" block>Salvar</ion-button>
+    <ion-button type="button" href="/campanhas" block>Cancelar</ion-button>
   </form>
 </ion-content>

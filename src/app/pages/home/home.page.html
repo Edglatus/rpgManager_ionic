@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      RPG Manager
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <img src="/assets/shapes.svg" alt=""/>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Bem-vinda(o) ao gerenciador de RPG</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list lines="none" class="ion-float-left">
+    <ion-list-header>
+      <ion-label>Criar</ion-label>
+    </ion-list-header>
+    <ion-item href="/form/personagem">
+      <ion-icon slot="start" color="medium" name="man"></ion-icon>
+      <ion-label>Personagem</ion-label>
+    </ion-item>
+    <ion-item href="/form/campanha">
+      <ion-icon slot="start" color="medium" name="bonfire"></ion-icon>
+      <ion-label>Campanha</ion-label>
+    </ion-item>
+    <ion-item href="/form/classe">
+      <ion-icon slot="start" color="medium" name="color-wand"></ion-icon>
+      <ion-label>Classe</ion-label>
+    </ion-item>
+    <ion-item href="/form/jogador">
+      <ion-icon slot="start" color="medium" name="people"></ion-icon>
+      <ion-label>Jogador</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
